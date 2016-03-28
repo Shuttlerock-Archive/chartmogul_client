@@ -10,19 +10,23 @@ module Chartmogul
       # Public: Constructor.
       #
       # url     - The String url.
-      # userpwd - The String with credentials for Basic Authentication.
+      # body    - The String body.
+      # headers - The Hash headers.
       # method  - The Symbol request method (default: :get).
+      # userpwd - The String with credentials for Basic Authentication.
       # params  - The Hash query params.
-      def initialize(url, userpwd: nil, method: :get, **params)
+      def initialize(url, body: nil, headers: nil, method: :get, userpwd: nil, **params)
         @url      = url
         @userpwd  = userpwd
         @params   = params
         @response = Typhoeus::Request.new(url,
-          userpwd:        userpwd,
+          body:           body,
+          connecttimeout: 5,
+          headers:        headers,
           method:         method,
           params:         params,
-          connecttimeout: 5,
-          timeout:        10
+          timeout:        10,
+          userpwd:        userpwd,
         ).run
       end
 
