@@ -6,13 +6,14 @@ RSpec.describe Chartmogul::V1::Import::Invoices do
 
   describe '#create' do
     let(:url) { 'https://api.chartmogul.com/v1/import/customers/customer-id/invoices' }
-    let(:query) { { foo: 'bar' } }
+    let(:body)  { [ {foo: 'bar'} ] }
+    let(:query) { {} }
 
     before do
-      stub_request(:post, url).with(query: query).to_return(status: 201)
+      stub_request(:post, url).with(body: { invoices: body }.to_json).to_return(status: 201)
     end
 
-    subject { client.import.customers.invoices.create('customer-id', query) }
+    subject { client.import.customers.invoices.create('customer-id', body) }
 
     it_should_behave_like 'a base ChartMogul API V1 requests', method: :post
   end
