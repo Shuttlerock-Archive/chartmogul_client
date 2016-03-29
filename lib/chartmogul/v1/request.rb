@@ -10,15 +10,21 @@ module Chartmogul
       # Public: Constructor.
       #
       # url     - The String url.
-      # body    - The String body.
-      # headers - The Hash headers.
+      # body    - The String body (default: nil).
+      # headers - The Hash headers (default: {}).
       # method  - The Symbol request method (default: :get).
-      # userpwd - The String with credentials for Basic Authentication.
-      # params  - The Hash query params.
-      def initialize(url, body: nil, headers: nil, method: :get, userpwd: nil, **params)
-        @url      = url
-        @userpwd  = userpwd
-        @params   = params
+      # userpwd - The String with credentials for Basic Authentication (default: nil).
+      # params  - The Hash query params (default: {}).
+      def initialize(url, body: nil, headers: {}, method: :get, userpwd: nil, **params)
+        @url     = url
+        @userpwd = userpwd
+        @params  = params
+
+        if body
+          body = MultiJson.dump(body)
+          headers.merge!('Content-Type' => 'application/json')
+        end
+
         @response = Typhoeus::Request.new(url,
           body:           body,
           connecttimeout: 5,

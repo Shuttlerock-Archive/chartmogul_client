@@ -29,8 +29,7 @@ module Chartmogul
         # Returns the instance of Chartmogul::V1::Request.
         def create(customer_id, attributes = [])
           Chartmogul::V1::Request.new("#{BASE_URI}/#{customer_id}/attributes/custom",
-            body:    MultiJson.dump(custom: attributes),
-            headers: { 'Content-Type' => 'application/json' },
+            body:    { custom: attributes },
             method:  :post,
             userpwd: client.userpwd,
           )
@@ -54,8 +53,7 @@ module Chartmogul
         # Returns the instance of Chartmogul::V1::Request.
         def update(customer_id, attributes = [])
           Chartmogul::V1::Request.new("#{BASE_URI}/#{customer_id}/attributes/custom",
-            body:    MultiJson.dump(custom: attributes),
-            headers: { 'Content-Type' => 'application/json' },
+            body:    { custom: attributes },
             method:  :put,
             userpwd: client.userpwd,
           )

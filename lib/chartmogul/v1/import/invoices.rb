@@ -55,8 +55,7 @@ module Chartmogul
       # Returns the instance of Chartmogul::V1::Request.
       def create(customer_id, invoices = [])
         Chartmogul::V1::Request.new("#{BASE_URI}/#{customer_id}/invoices",
-          body:    MultiJson.dump(invoices: invoices),
-          headers: { 'Content-Type' => 'application/json' },
+          body:    { invoices: invoices },
           method:  :post,
           userpwd: client.userpwd,
         )

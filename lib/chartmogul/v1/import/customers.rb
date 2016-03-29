@@ -34,8 +34,8 @@ module Chartmogul
       #           :zip              - The String zip code of the customer's location (optional).
       #
       # Returns the instance of Chartmogul::V1::Request.
-      def create(**options)
-        Chartmogul::V1::Request.new "#{BASE_URI}", options.merge(method: :post, userpwd: client.userpwd)
+      def create(options = {})
+        Chartmogul::V1::Request.new BASE_URI, options.merge(method: :post, userpwd: client.userpwd)
       end
 
       # Public: Get list Customers.
@@ -44,7 +44,7 @@ module Chartmogul
       #
       # Returns the instance of Chartmogul::V1::Request.
       def list
-        Chartmogul::V1::Request.new "#{BASE_URI}", userpwd: client.userpwd
+        Chartmogul::V1::Request.new BASE_URI, userpwd: client.userpwd
       end
     end
   end
