@@ -17,9 +17,17 @@ module Chartmogul
         Chartmogul::V1::Import::Plans.new(client)
       end
 
+      # Public: Get subscriptions API.
+      #
+      # Returns the instance of Chartmogul::V1::Import::Subscriptions.
+      def subscriptions
+        Chartmogul::V1::Import::Subscriptions.new(client)
+      end
+
     end
   end
 end
 
 require 'chartmogul/v1/import/customers'
 require 'chartmogul/v1/import/plans'
+require 'chartmogul/v1/import/subscriptions'

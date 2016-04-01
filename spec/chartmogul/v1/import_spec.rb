@@ -11,4 +11,18 @@ RSpec.describe Chartmogul::V1::Import do
     it { expect(subject.client).to eq client }
   end
 
+  describe '#plans' do
+    subject { client.import.plans }
+
+    it { expect(subject).to be_a Chartmogul::V1::Import::Plans }
+    it { expect(subject.client).to eq client }
+  end
+
+  describe '#subscriptions' do
+    subject { client.import.subscriptions }
+
+    it { expect(subject).to be_a Chartmogul::V1::Import::Subscriptions }
+    it { expect(subject.client).to eq client }
+  end
+
 end
