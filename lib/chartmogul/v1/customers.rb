@@ -10,6 +10,10 @@ module Chartmogul
         Attributes.new(client)
       end
 
+      def email_attributes
+        EmailAttributes.new(client)
+      end
+
       class Attributes < Customers
         # Public: Create Custom Attributes for a Customer
         #
@@ -60,6 +64,30 @@ module Chartmogul
         end
       end
 
+      class EmailAttributes < Customers
+        # Public: Create Custom Attributes for a Customer
+        #
+        # See: https://dev.chartmogul.com/docs/create-custom-attributes-for-customer
+        #
+        # email - The String email of the customer.
+        # attributes  - The Array options used to create a Attributes (default: []).
+        #
+        # Examples
+        #
+        #   client.customers.attributes.create 'alex@clearbit.com', [
+        #     { type: 'String',  key: 'bar', value: 'baz' },
+        #     { type: 'Integer', key: 'qux', value: 1 }
+        #   ]
+        #
+        # Returns the instance of Chartmogul::V1::Request.
+        def create(email, attributes = [])
+          Chartmogul::V1::Request.new("#{BASE_URI}/attributes/custom",
+            body:    { email: email, custom: attributes },
+            method:  :post,
+            userpwd: client.userpwd,
+          )
+        end
+      end
     end
   end
 end
